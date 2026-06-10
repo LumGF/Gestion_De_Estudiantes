@@ -11,15 +11,31 @@ foreach ($port in $Ports) {
             try {
                 $proc = Get-Process -Id $processId -ErrorAction SilentlyContinue
                 Write-Host "Puerto $port -> PID $processId ($($proc.ProcessName))" -ForegroundColor Gray
-                Stop-Process -Id $processId -Force -ErrorAction Stop
-                Write-Host "  Detenido." -ForegroundColor Green
+                taskkill /F /T /PID $processId 2>$null | Out-Null
+                Write-Host "  Detenido (proceso y dependencias)." -ForegroundColor Green
             } catch {
-                taskkill /F /PID $processId 2>$null | Out-Null
-                Write-Host "  Detenido con taskkill." -ForegroundColor Green
+                Stop-Process -Id $processId -Force -ErrorAction SilentlyContinue
+                Write-Host "  Detenido." -ForegroundColor Green
             }
         }
     }
 }
+
+# Cerrar ventanas PowerShell abiertas por start.ps1
+$serviceMarkers = @(
+    'gestion-acceso-backend',
+    'whatsapp-bridge',
+    'colegio-gestion-acceso'
+)
+Get-CimInstance Win32_Process -Filter "Name = 'powershell.exe'" -ErrorAction SilentlyContinue |
+    Where-Object {
+        $cmd = $_.CommandLine
+        $cmd -and ($serviceMarkers | Where-Object { $cmd -like "*$_*" })
+    } |
+    ForEach-Object {
+        Write-Host "Cerrando ventana de servicio PID $($_.ProcessId)" -ForegroundColor Gray
+        Stop-Process -Id $_.ProcessId -Force -ErrorAction SilentlyContinue
+    }
 
 Start-Sleep -Seconds 2
 
@@ -33,3 +49,6 @@ foreach ($port in $Ports) {
         Write-Host "  Puerto $port -> LIBRE" -ForegroundColor Green
     }
 }
+
+Write-Host ""
+Write-Host "Servicios detenidos." -ForegroundColor Green

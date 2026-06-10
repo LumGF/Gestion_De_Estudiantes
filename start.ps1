@@ -59,4 +59,4 @@ Write-Host "  Swagger:   http://localhost:8080/swagger-ui/index.html"
 Write-Host "  WhatsApp:  http://localhost:3001/status"
 Write-Host ""
 Write-Host "Login: admin@colegio.edu / admin123" -ForegroundColor Cyan
-Write-Host "Para detener todo: .\stop.ps1" -ForegroundColor Gray
+Write-Host "Para detener todo: doble clic en 'Detener Servicios.bat' o .\stop.ps1" -ForegroundColor Gray

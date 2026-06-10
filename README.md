@@ -68,7 +68,9 @@ cd ..
 
 ### 3. Levantar los 3 servicios con un solo comando
 
-Desde la **raíz del proyecto**:
+**Desde el Explorador de Windows (recomendado):** doble clic en **`Iniciar Servicios.bat`**
+
+O desde PowerShell en la **raíz del proyecto**:
 
 ```powershell
 .\start.ps1
@@ -80,6 +82,10 @@ Se abren **3 ventanas de PowerShell**:
 - Frontend (4200)
 
 ### 4. Detener todo
+
+**Desde el Explorador de Windows:** doble clic en **`Detener Servicios.bat`**
+
+O desde PowerShell:
 
 ```powershell
 .\stop.ps1
@@ -127,7 +133,8 @@ PORT=3001 npm start
 
 Escanea el **QR** que aparece en la consola: WhatsApp → **Dispositivos vinculados** → Vincular.
 
-Estado del bridge: http://localhost:3001/status
+Estado del bridge: http://localhost:3001/status  
+QR en el navegador (si no aparece en consola): http://localhost:3001/qr
 
 ### Terminal 3 — Frontend
 
@@ -286,17 +293,17 @@ java -version
 ### WhatsApp no muestra QR
 
 1. Verifica que **Google Chrome** esté instalado.
-2. Detén el bridge y borra sesión antigua (fuerza QR nuevo):
+2. Abre el QR en el navegador: http://localhost:3001/qr
+3. Detén el bridge y borra sesión antigua (fuerza QR nuevo):
 
 ```powershell
-.\stop.ps1
+.\Detener Servicios.bat
 Remove-Item -Recurse -Force whatsapp-bridge\.wwebjs_auth -ErrorAction SilentlyContinue
-cd whatsapp-bridge
-$env:PORT = "3001"
-npm start
+Remove-Item -Recurse -Force whatsapp-bridge\.wwebjs_cache -ErrorAction SilentlyContinue
+.\Iniciar Servicios.bat
 ```
 
-3. Revisa la ventana **WHATSAPP BRIDGE - puerto 3001**.
+4. Revisa la ventana **WHATSAPP BRIDGE - puerto 3001** (el bridge reintenta solo si falla la conexión).
 
 ### Error al registrar inasistencia / tardanza
 
@@ -320,8 +327,10 @@ Usa: http://localhost:8080/swagger-ui/index.html
 ├── colegio-gestion-acceso/   # Frontend Angular
 ├── gestion-acceso-backend/   # API Spring Boot + SQLite
 ├── whatsapp-bridge/          # Puente WhatsApp Web
-├── start.ps1                 # Levantar todo (Windows)
-├── stop.ps1                  # Detener todo (Windows)
+├── Iniciar Servicios.bat     # Levantar todo (doble clic)
+├── Detener Servicios.bat     # Detener todo (doble clic)
+├── start.ps1                 # Levantar todo (PowerShell)
+├── stop.ps1                  # Detener todo (PowerShell)
 ├── docker-compose.yml
 ├── .env.example
 └── docs/PRODUCCION.md
