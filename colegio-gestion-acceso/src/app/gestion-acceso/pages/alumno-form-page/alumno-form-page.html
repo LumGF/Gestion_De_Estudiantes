@@ -1,0 +1,73 @@
+<div class="container">
+  <h2>{{ esEdicion ? 'Editar Alumno' : 'Nuevo Alumno' }}</h2>
+
+  <form [formGroup]="form">
+    <label>Código:</label>
+    <input type="text" formControlName="codigo" placeholder="Ingrese código"/>
+    @if (form.get('codigo')?.invalid && form.get('codigo')?.touched) {
+      <span class="error-msg">El código es requerido</span>
+    }
+
+    <label>Nombre:</label>
+    <input type="text" formControlName="nombre" placeholder="Ingrese nombre"/>
+    @if (form.get('nombre')?.invalid && form.get('nombre')?.touched) {
+      <span class="error-msg">El nombre es requerido</span>
+    }
+
+    <label>Descripción:</label>
+    <input type="text" formControlName="descripcion" placeholder="Ingrese descripción"/>
+    @if (form.get('descripcion')?.invalid && form.get('descripcion')?.touched) {
+      <span class="error-msg">La descripción es requerida</span>
+    }
+
+    <label>DNI:</label>
+    <input type="text" formControlName="dni" maxlength="8" placeholder="8 dígitos"/>
+    @if (form.get('dni')?.invalid && form.get('dni')?.touched) {
+      <span class="error-msg">El DNI debe tener 8 dígitos</span>
+    }
+
+    <label>Fecha de Registro:</label>
+    <input type="date" formControlName="fechaRegistro"/>
+    @if (form.get('fechaRegistro')?.invalid && form.get('fechaRegistro')?.touched) {
+      <span class="error-msg">La fecha es requerida</span>
+    }
+
+    <label>Teléfono padre / madre 1:</label>
+    <div class="phone-input">
+      <span class="phone-prefix">{{ prefijoPais }}</span>
+      <input
+        type="tel"
+        formControlName="telefonoPadre1"
+        maxlength="9"
+        inputmode="numeric"
+        placeholder="987654321"
+      />
+    </div>
+    @if (form.get('telefonoPadre1')?.invalid && form.get('telefonoPadre1')?.touched) {
+      <span class="error-msg">Ingrese 9 dígitos (celular Perú, empieza en 9)</span>
+    }
+
+    <label>Teléfono padre / madre 2 (opcional):</label>
+    <div class="phone-input">
+      <span class="phone-prefix">{{ prefijoPais }}</span>
+      <input
+        type="tel"
+        formControlName="telefonoPadre2"
+        maxlength="9"
+        inputmode="numeric"
+        placeholder="987654321"
+      />
+    </div>
+    @if (form.get('telefonoPadre2')?.invalid && form.get('telefonoPadre2')?.touched) {
+      <span class="error-msg">Si ingresa teléfono, use 9 dígitos (celular Perú)</span>
+    }
+    <p class="hint">El código +51 se agrega automáticamente al guardar.</p>
+
+    <div class="acciones">
+      <button class="btn-guardar" (click)="guardar()" [disabled]="form.invalid">
+        {{ esEdicion ? 'Actualizar' : 'Guardar' }}
+      </button>
+      <button class="btn-cancelar" (click)="cancelar()">Cancelar</button>
+    </div>
+  </form>
+</div>

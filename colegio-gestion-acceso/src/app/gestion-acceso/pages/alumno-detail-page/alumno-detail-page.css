@@ -1,0 +1,77 @@
+.container {
+  max-width: 500px;
+  margin: 40px auto;
+  padding: 30px;
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  font-family: Arial, sans-serif;
+}
+
+h2 {
+  color: #2c3e50;
+  border-bottom: 2px solid #3498db;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+.detalle-item {
+  margin: 10px 0;
+  color: #333;
+  font-size: 15px;
+}
+
+.detalle-item strong {
+  color: #2c3e50;
+}
+
+.btn-volver {
+  margin-top: 20px;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.btn-volver:hover { background-color: #2980b9; }
+
+.whatsapp-section {
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px dashed #bdc3c7;
+}
+
+.whatsapp-section h3 {
+  margin: 0 0 10px;
+  color: #27ae60;
+  font-size: 1rem;
+}
+
+.wa-estado {
+  font-size: 13px;
+  margin: 0 0 12px;
+  color: #7f8c8d;
+}
+
+.wa-estado.wa-ok { color: #27ae60; font-weight: bold; }
+.wa-estado.wa-pending { color: #e67e22; }
+
+.btn-wa {
+  background-color: #25d366;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.btn-wa:hover:not(:disabled) { background-color: #1da851; }
+.btn-wa:disabled { background-color: #95a5a6; cursor: not-allowed; }
+
+.wa-resumen { font-size: 14px; margin-top: 12px; font-weight: bold; }
+.wa-resumen.wa-ok { color: #27ae60; }
+.wa-detalle { font-size: 12px; color: #555; margin: 4px 0; }
+.wa-error { color: #c0392b; font-size: 13px; margin-top: 10px; }

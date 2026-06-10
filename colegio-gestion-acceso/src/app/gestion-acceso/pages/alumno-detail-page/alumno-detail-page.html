@@ -1,0 +1,43 @@
+<div class="container">
+  @if (alumno()) {
+    <h2>Detalle del Alumno</h2>
+    <p class="detalle-item"><strong>ID:</strong> {{ alumno()!.id }}</p>
+    <p class="detalle-item"><strong>Código:</strong> {{ alumno()!.codigo }}</p>
+    <p class="detalle-item"><strong>Nombre:</strong> {{ alumno()!.nombre }}</p>
+    <p class="detalle-item"><strong>Descripción:</strong> {{ alumno()!.descripcion }}</p>
+    <p class="detalle-item"><strong>DNI:</strong> {{ alumno()!.dni }}</p>
+    <p class="detalle-item"><strong>Fecha de Registro:</strong> {{ alumno()!.fechaRegistro }}</p>
+    <p class="detalle-item"><strong>Teléfono padre/madre 1:</strong> {{ formatTelefono(alumno()!.telefonoPadre1) }}</p>
+    <p class="detalle-item"><strong>Teléfono padre/madre 2:</strong> {{ formatTelefono(alumno()!.telefonoPadre2) }}</p>
+
+    <section class="whatsapp-section">
+      <h3>Prueba WhatsApp</h3>
+      <p class="wa-estado" [class.wa-ok]="whatsAppListo()" [class.wa-pending]="!whatsAppListo()">
+        {{ whatsAppMensaje() }}
+      </p>
+      <button
+        class="btn-wa"
+        (click)="enviarPruebaWhatsApp()"
+        [disabled]="enviandoPrueba() || !whatsAppListo()"
+      >
+        {{ enviandoPrueba() ? 'Enviando...' : 'Enviar mensaje de prueba a padres' }}
+      </button>
+      @if (resultadoPrueba(); as res) {
+        <p class="wa-resumen" [class.wa-ok]="res.exito">{{ res.resumen }}</p>
+        @for (r of res.resultados; track r.telefono) {
+          <p class="wa-detalle">
+            {{ formatTelefono(r.telefono) }}:
+            {{ r.enviado ? 'Enviado' : 'Falló' }} — {{ r.detalle }}
+          </p>
+        }
+      }
+      @if (errorPrueba()) {
+        <p class="wa-error">{{ errorPrueba() }}</p>
+      }
+    </section>
+
+    <button class="btn-volver" (click)="goBack()">Volver</button>
+  } @else {
+    <p>Cargando alumno...</p>
+  }
+</div>

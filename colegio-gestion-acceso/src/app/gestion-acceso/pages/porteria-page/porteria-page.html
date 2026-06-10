@@ -1,0 +1,128 @@
+<div class="page porteria">
+  <h2>Portería — Registrar acceso</h2>
+  <p class="desc">Busque al alumno por código y registre entrada, salida, tardanza o inasistencia. Se notificará a los padres por WhatsApp.</p>
+
+  <div class="search-box">
+    <input
+      type="text"
+      [(ngModel)]="codigoBusqueda"
+      placeholder="Código del alumno (ej. A-001)"
+      (keyup.enter)="buscar()"
+    />
+    <button (click)="buscar()" [disabled]="buscando()">
+      {{ buscando() ? 'Buscando...' : 'Buscar' }}
+    </button>
+  </div>
+
+  @if (error()) {
+    <p class="error">{{ error() }}</p>
+  }
+
+  @if (alumno(); as a) {
+    <div class="alumno-card">
+      <h3>{{ a.nombre }}</h3>
+      <p><strong>Código:</strong> {{ a.codigo }}</p>
+      <p><strong>DNI:</strong> {{ a.dni }}</p>
+
+      <div class="acciones acciones-principales">
+        <button class="btn-entrada" (click)="registrar('ENTRADA')" [disabled]="registrando()">
+          Registrar ENTRADA
+        </button>
+        <button class="btn-salida" (click)="registrar('SALIDA')" [disabled]="registrando()">
+          Registrar SALIDA
+        </button>
+        <button class="btn-tardanza" (click)="registrar('TARDANZA')" [disabled]="registrando()">
+          Tardanza
+        </button>
+      </div>
+
+      <div class="acciones acciones-asistencia">
+        <button class="btn-falta" (click)="registrar('NO_ASISTIO')" [disabled]="registrando()">
+          No asistió
+        </button>
+        <button class="btn-permiso" (click)="registrar('NO_ASISTIO_CON_PERMISO')" [disabled]="registrando()">
+          No asistió (con permiso)
+        </button>
+      </div>
+
+      @if (mostrarConfirmacionFalta()) {
+        <div class="falta-form">
+          <p class="form-title">Confirmar inasistencia sin permiso</p>
+          <p class="form-hint">Se enviará este mensaje a los padres por WhatsApp:</p>
+          <pre class="mensaje-preview">{{ previewMensaje(a.nombre, a.codigo, 'NO_ASISTIO') }}</pre>
+          <div class="permiso-acciones">
+            <button class="btn-confirmar-falta" (click)="registrar('NO_ASISTIO')" [disabled]="registrando()">
+              Confirmar — no asistió
+            </button>
+            <button type="button" class="btn-cancelar" (click)="cancelarFalta()">Cancelar</button>
+          </div>
+        </div>
+      }
+
+      @if (mostrarFormTardanza()) {
+        <div class="tardanza-form">
+          <p class="form-title">Registrar tardanza</p>
+          <label for="obsTardanza">Detalle (opcional)</label>
+          <input
+            id="obsTardanza"
+            type="text"
+            [(ngModel)]="observacionTardanza"
+            placeholder="Ej. Llegó 20 minutos tarde"
+          />
+          <p class="form-hint">Mensaje que recibirán los padres:</p>
+          <pre class="mensaje-preview">{{ previewMensaje(a.nombre, a.codigo, 'TARDANZA', observacionTardanza) }}</pre>
+          <div class="permiso-acciones">
+            <button class="btn-confirmar-tardanza" (click)="registrar('TARDANZA')" [disabled]="registrando()">
+              Confirmar tardanza
+            </button>
+            <button type="button" class="btn-cancelar" (click)="cancelarTardanza()">Cancelar</button>
+          </div>
+        </div>
+      }
+
+      @if (mostrarFormPermiso()) {
+        <div class="permiso-form">
+          <label for="observacion">Motivo del permiso *</label>
+          <textarea
+            id="observacion"
+            [(ngModel)]="observacionPermiso"
+            rows="3"
+            placeholder="Ej. Cita médica, viaje autorizado por dirección..."
+          ></textarea>
+          @if (observacionPermiso.trim()) {
+            <p class="form-hint">Mensaje que recibirán los padres:</p>
+            <pre class="mensaje-preview">{{ previewMensaje(a.nombre, a.codigo, 'NO_ASISTIO_CON_PERMISO', observacionPermiso) }}</pre>
+          }
+          <div class="permiso-acciones">
+            <button class="btn-confirmar-permiso" (click)="registrar('NO_ASISTIO_CON_PERMISO')" [disabled]="registrando()">
+              Confirmar inasistencia con permiso
+            </button>
+            <button type="button" class="btn-cancelar" (click)="cancelarPermiso()">Cancelar</button>
+          </div>
+        </div>
+      }
+    </div>
+  }
+
+  @if (mensaje()) {
+    <p class="success">{{ mensaje() }}</p>
+  }
+
+  @if (ultimoAcceso(); as u) {
+    <div class="ultimo">
+      <h4>Último registro</h4>
+      <p>{{ u.alumnoNombre }} — {{ etiquetaTipo(u.tipo) }} — {{ u.fechaHora | date:'short' }}</p>
+      @if (u.observacion) {
+        <p class="obs"><strong>Observación:</strong> {{ u.observacion }}</p>
+      }
+      @for (n of u.notificaciones; track n.id) {
+        <p class="notif-line" [class.ok]="n.estado === 'ENVIADO'" [class.fail]="n.estado === 'FALLIDO'">
+          {{ n.telefono }}: {{ n.estado }} — {{ n.error || 'OK' }}
+        </p>
+        @if (n.mensaje) {
+          <pre class="mensaje-enviado">{{ n.mensaje }}</pre>
+        }
+      }
+    </div>
+  }
+</div>

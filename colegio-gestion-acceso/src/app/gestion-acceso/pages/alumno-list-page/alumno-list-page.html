@@ -1,0 +1,58 @@
+<div class="page">
+  <div class="header-row">
+    <h2>Alumnos</h2>
+    @if (auth.isAdmin()) {
+      <button class="btn-nuevo" (click)="goToNuevo()">+ Nuevo Alumno</button>
+    }
+  </div>
+
+  <div class="search-row">
+    <input type="text" [(ngModel)]="busqueda" placeholder="Buscar por nombre, código o DNI..." (keyup.enter)="buscar()" />
+    <button (click)="buscar()">Buscar</button>
+  </div>
+
+  @if (loading()) {
+    <p>Cargando...</p>
+  } @else {
+    <table>
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Código</th>
+          <th>DNI</th>
+          <th>Contactos</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (alumno of alumnos(); track alumno.id) {
+          <tr>
+            <td>{{ alumno.nombre }}</td>
+            <td>{{ alumno.codigo }}</td>
+            <td>{{ alumno.dni }}</td>
+            <td>{{ formatTelefono(alumno.telefonoPadre1) }} · {{ formatTelefono(alumno.telefonoPadre2) }}</td>
+            <td class="acciones">
+              <button class="btn-ver" (click)="goToDetalle(alumno.id!)">Ver</button>
+              @if (auth.isAdmin()) {
+                <button class="btn-editar" (click)="goToEditar(alumno.id!)">Editar</button>
+                <button class="btn-eliminar" (click)="eliminar(alumno.id!)">Eliminar</button>
+              }
+            </td>
+          </tr>
+        } @empty {
+          <tr><td colspan="5" class="empty">No hay alumnos registrados.</td></tr>
+        }
+      </tbody>
+    </table>
+
+    <div class="pagination">
+      <button (click)="anterior()" [disabled]="page === 0">Anterior</button>
+      <span>Página {{ page + 1 }} de {{ totalPages || 1 }}</span>
+      <button (click)="siguiente()" [disabled]="page >= totalPages - 1">Siguiente</button>
+    </div>
+  }
+
+  @if (error()) {
+    <p class="error">{{ error() }}</p>
+  }
+</div>

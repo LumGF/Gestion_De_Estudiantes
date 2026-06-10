@@ -1,0 +1,41 @@
+<div class="page">
+  <div class="header-row">
+    <h2>Log de notificaciones WhatsApp</h2>
+    <button (click)="reintentar()" [disabled]="reintentando()">
+      {{ reintentando() ? 'Reintentando...' : 'Reintentar pendientes' }}
+    </button>
+  </div>
+
+  @if (loading()) {
+    <p>Cargando...</p>
+  } @else {
+    <table>
+      <thead>
+        <tr>
+          <th>Fecha</th>
+          <th>Alumno</th>
+          <th>Teléfono</th>
+          <th>Estado</th>
+          <th>Intentos</th>
+          <th>Detalle</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (n of notificaciones(); track n.id) {
+          <tr>
+            <td>{{ n.fechaCreacion | date:'short' }}</td>
+            <td>{{ n.alumnoNombre }}</td>
+            <td>{{ formatTelefono(n.telefono) }}</td>
+            <td>
+              <span class="estado" [class]="n.estado.toLowerCase()">{{ n.estado }}</span>
+            </td>
+            <td>{{ n.intentos }}</td>
+            <td class="detalle">{{ n.error || '—' }}</td>
+          </tr>
+        } @empty {
+          <tr><td colspan="6" class="empty">Sin notificaciones</td></tr>
+        }
+      </tbody>
+    </table>
+  }
+</div>

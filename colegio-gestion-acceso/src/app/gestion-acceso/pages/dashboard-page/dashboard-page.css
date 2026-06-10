@@ -1,0 +1,74 @@
+.page { padding: 2rem; max-width: 1100px; }
+
+h2 { color: #1a5276; margin-bottom: 1.5rem; }
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.stat-card {
+  background: #fff;
+  border-radius: 10px;
+  padding: 1.25rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  text-align: center;
+}
+
+.stat-value { display: block; font-size: 2rem; font-weight: 700; color: #2c3e50; }
+.stat-label { font-size: 0.8rem; color: #7f8c8d; }
+
+.stat-card.entrada .stat-value { color: #27ae60; }
+.stat-card.salida .stat-value { color: #e67e22; }
+.stat-card.tardanza .stat-value { color: #d68910; }
+.stat-card.falta .stat-value { color: #c0392b; }
+.stat-card.permiso .stat-value { color: #8e44ad; }
+.stat-card.ok .stat-value { color: #2980b9; }
+.stat-card.error .stat-value { color: #e74c3c; }
+
+.wa-status {
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+}
+.wa-ok { background: #d5f5e3; color: #1e8449; }
+.wa-pending { background: #fdebd0; color: #b9770e; }
+
+.recent {
+  background: #fff;
+  border-radius: 10px;
+  padding: 1.25rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.recent h3 { margin-top: 0; color: #2c3e50; }
+
+.acceso-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid #ecf0f1;
+}
+
+.badge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  min-width: 60px;
+  text-align: center;
+}
+.badge.entrada { background: #d5f5e3; color: #1e8449; }
+.badge.salida { background: #fdebd0; color: #b9770e; }
+.badge.tardanza { background: #fcf3cf; color: #9a7d0a; }
+.badge.falta { background: #fadbd8; color: #922b21; }
+.badge.permiso { background: #e8daef; color: #6c3483; }
+
+.obs-inline { color: #7f8c8d; font-size: 0.85rem; font-style: italic; }
+
+.hora { margin-left: auto; color: #95a5a6; font-size: 0.85rem; }
+.empty { color: #95a5a6; font-style: italic; }

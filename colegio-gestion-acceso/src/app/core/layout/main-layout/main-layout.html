@@ -1,0 +1,23 @@
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <h2>Colegio</h2>
+      <span>Gestión de Acceso</span>
+    </div>
+    <nav>
+      <a routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
+      <a routerLink="/porteria" routerLinkActive="active">Portería</a>
+      <a routerLink="/alumnos" routerLinkActive="active">Alumnos</a>
+      <a routerLink="/accesos" routerLinkActive="active">Historial accesos</a>
+      <a routerLink="/notificaciones" routerLinkActive="active">Notificaciones</a>
+    </nav>
+    <div class="user-panel">
+      <p class="user-name">{{ auth.user()?.nombre }}</p>
+      <p class="user-rol">{{ auth.user()?.rol }}</p>
+      <button class="btn-logout" (click)="logout()">Cerrar sesión</button>
+    </div>
+  </aside>
+  <main class="content">
+    <router-outlet />
+  </main>
+</div>

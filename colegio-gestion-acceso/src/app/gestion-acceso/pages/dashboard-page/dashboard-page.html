@@ -1,0 +1,68 @@
+<div class="page">
+  <h2>Dashboard</h2>
+
+  @if (loading()) {
+    <p>Cargando...</p>
+  } @else if (resumen(); as r) {
+    <div class="stats-grid">
+      <div class="stat-card">
+        <span class="stat-value">{{ r.totalAlumnos }}</span>
+        <span class="stat-label">Alumnos registrados</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-value">{{ r.accesosHoy }}</span>
+        <span class="stat-label">Accesos hoy</span>
+      </div>
+      <div class="stat-card entrada">
+        <span class="stat-value">{{ r.entradasHoy }}</span>
+        <span class="stat-label">Entradas hoy</span>
+      </div>
+      <div class="stat-card salida">
+        <span class="stat-value">{{ r.salidasHoy }}</span>
+        <span class="stat-label">Salidas hoy</span>
+      </div>
+      <div class="stat-card tardanza">
+        <span class="stat-value">{{ r.tardanzasHoy }}</span>
+        <span class="stat-label">Tardanzas hoy</span>
+      </div>
+      <div class="stat-card falta">
+        <span class="stat-value">{{ r.noAsistioHoy }}</span>
+        <span class="stat-label">No asistió</span>
+      </div>
+      <div class="stat-card permiso">
+        <span class="stat-value">{{ r.noAsistioConPermisoHoy }}</span>
+        <span class="stat-label">Con permiso</span>
+      </div>
+      <div class="stat-card ok">
+        <span class="stat-value">{{ r.notificacionesEnviadas }}</span>
+        <span class="stat-label">WhatsApp enviados</span>
+      </div>
+      <div class="stat-card error">
+        <span class="stat-value">{{ r.notificacionesFallidas }}</span>
+        <span class="stat-label">WhatsApp fallidos</span>
+      </div>
+    </div>
+
+    <div class="wa-status" [class.wa-ok]="r.whatsAppListo" [class.wa-pending]="!r.whatsAppListo">
+      WhatsApp: {{ r.whatsAppMensaje }}
+    </div>
+  }
+
+  <section class="recent">
+    <h3>Accesos de hoy</h3>
+    @for (a of accesosHoy(); track a.id) {
+      <div class="acceso-row">
+        <span class="badge" [class]="claseBadge(a.tipo)">
+          {{ etiquetaTipo(a.tipo) }}
+        </span>
+        <span>{{ a.alumnoNombre }} ({{ a.alumnoCodigo }})</span>
+        @if (a.observacion) {
+          <span class="obs-inline">— {{ a.observacion }}</span>
+        }
+        <span class="hora">{{ formatHora(a.fechaHora) }}</span>
+      </div>
+    } @empty {
+      <p class="empty">Sin accesos registrados hoy.</p>
+    }
+  </section>
+</div>

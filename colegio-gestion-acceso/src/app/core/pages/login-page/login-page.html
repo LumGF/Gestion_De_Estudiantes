@@ -1,0 +1,24 @@
+<div class="login-container">
+  <div class="login-card">
+    <h1>Colegio</h1>
+    <p class="subtitle">Gestión de Acceso</p>
+
+    <form [formGroup]="form" (ngSubmit)="submit()">
+      <label>Email</label>
+      <input type="email" formControlName="email" placeholder="admin@colegio.edu" />
+
+      <label>Contraseña</label>
+      <input type="password" formControlName="password" placeholder="••••••••" />
+
+      @if (error) {
+        <p class="error">{{ error }}</p>
+      }
+
+      <button type="submit" [disabled]="form.invalid || loading">
+        {{ loading ? 'Ingresando...' : 'Ingresar' }}
+      </button>
+    </form>
+
+    <p class="hint">Demo: admin@colegio.edu / admin123 · personal@colegio.edu / personal123</p>
+  </div>
+</div>

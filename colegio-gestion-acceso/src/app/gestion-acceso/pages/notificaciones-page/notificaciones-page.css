@@ -1,0 +1,31 @@
+.page { padding: 2rem; }
+.header-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+h2 { color: #1a5276; margin: 0; }
+
+.header-row button {
+  padding: 0.5rem 1rem;
+  background: #2980b9;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+table {
+  width: 100%;
+  background: #fff;
+  border-radius: 10px;
+  border-collapse: collapse;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+th, td { padding: 0.75rem 1rem; text-align: left; border-bottom: 1px solid #ecf0f1; font-size: 0.9rem; }
+th { background: #1a5276; color: #fff; }
+
+.estado { font-size: 0.75rem; font-weight: 700; padding: 0.2rem 0.5rem; border-radius: 4px; }
+.estado.enviado { background: #d5f5e3; color: #1e8449; }
+.estado.fallido { background: #fadbd8; color: #c0392b; }
+.estado.pendiente { background: #fdebd0; color: #b9770e; }
+
+.detalle { max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.empty { text-align: center; color: #95a5a6; }

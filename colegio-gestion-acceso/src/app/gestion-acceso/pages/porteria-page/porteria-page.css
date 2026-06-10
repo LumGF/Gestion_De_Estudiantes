@@ -1,0 +1,211 @@
+.page { padding: 2rem; max-width: 700px; }
+h2 { color: #1a5276; }
+.desc { color: #7f8c8d; margin-bottom: 1.5rem; }
+
+.search-box {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.search-box input {
+  flex: 1;
+  padding: 0.85rem 1rem;
+  font-size: 1.1rem;
+  border: 2px solid #bdc3c7;
+  border-radius: 8px;
+}
+
+.search-box button {
+  padding: 0.85rem 1.5rem;
+  background: #2980b9;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.alumno-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  margin-top: 1rem;
+}
+
+.alumno-card h3 { margin-top: 0; color: #2c3e50; font-size: 1.5rem; }
+
+.acciones-principales { margin-top: 1.25rem; }
+.acciones-asistencia { margin-top: 0.75rem; }
+
+.acciones button {
+  flex: 1;
+  padding: 0.85rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  color: #fff;
+}
+
+.btn-entrada { background: #27ae60; }
+.btn-salida { background: #e67e22; }
+.btn-tardanza { background: #d68910; }
+.btn-falta { background: #c0392b; }
+.btn-permiso { background: #8e44ad; }
+.btn-entrada:hover { background: #1e8449; }
+.btn-salida:hover { background: #d35400; }
+.btn-tardanza:hover { background: #b9770e; }
+.btn-falta:hover { background: #922b21; }
+.btn-permiso:hover { background: #6c3483; }
+
+.permiso-form {
+  margin-top: 1.25rem;
+  padding: 1rem;
+  background: #f8f4fc;
+  border: 1px solid #d7bde2;
+  border-radius: 8px;
+}
+
+.falta-form {
+  margin-top: 1.25rem;
+  padding: 1rem;
+  background: #fdf2f2;
+  border: 1px solid #f5b7b1;
+  border-radius: 8px;
+}
+
+.tardanza-form {
+  margin-top: 1.25rem;
+  padding: 1rem;
+  background: #fef9e7;
+  border: 1px solid #f9e79f;
+  border-radius: 8px;
+}
+
+.tardanza-form label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #7d6608;
+}
+
+.tardanza-form input {
+  width: 100%;
+  padding: 0.65rem;
+  border: 1px solid #f9e79f;
+  border-radius: 6px;
+  box-sizing: border-box;
+  margin-bottom: 0.5rem;
+}
+
+.form-title {
+  margin: 0 0 0.5rem;
+  font-weight: 700;
+  color: #922b21;
+}
+
+.form-hint {
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
+  color: #566573;
+}
+
+.mensaje-preview,
+.mensaje-enviado {
+  background: #fff;
+  border: 1px solid #d5dbdb;
+  border-radius: 6px;
+  padding: 0.75rem;
+  font-family: inherit;
+  font-size: 0.85rem;
+  white-space: pre-wrap;
+  margin: 0.5rem 0 0;
+  color: #2c3e50;
+}
+
+.permiso-form label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #5b2c6f;
+}
+
+.permiso-form textarea {
+  width: 100%;
+  padding: 0.65rem;
+  border: 1px solid #d7bde2;
+  border-radius: 6px;
+  font-family: inherit;
+  box-sizing: border-box;
+  resize: vertical;
+}
+
+.permiso-acciones {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.btn-confirmar-permiso {
+  flex: 1;
+  padding: 0.65rem 1rem;
+  background: #8e44ad;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.btn-confirmar-falta {
+  flex: 1;
+  padding: 0.65rem 1rem;
+  background: #c0392b;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.btn-confirmar-tardanza {
+  flex: 1;
+  padding: 0.65rem 1rem;
+  background: #d68910;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.btn-cancelar {
+  padding: 0.65rem 1rem;
+  background: #95a5a6;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+button:disabled { opacity: 0.6; cursor: not-allowed; }
+
+.acciones { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+
+.error { color: #e74c3c; }
+.success { color: #27ae60; font-weight: 600; margin-top: 1rem; }
+
+.ultimo {
+  margin-top: 1.5rem;
+  background: #ecf0f1;
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+.notif-line { font-size: 0.85rem; margin: 0.25rem 0; }
+.notif-line.ok { color: #1e8449; }
+.notif-line.fail { color: #c0392b; }
+.obs { font-size: 0.9rem; color: #555; margin: 0.35rem 0; }
